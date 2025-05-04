@@ -10,17 +10,11 @@ def home():
 @app.route('/search')
 def search():
     title = request.args.get('title')
-    print(title)
     artist = request.args.get('artist')
-    print(artist)
     
-    results = []
     engine = Engine()
-    results = engine.search(title, artist)
-    # for item in results:
-    #     print(item.title, " ", item.image)
-    
-    return render_template('search.html', results=results)
+    item = engine.search(title, artist)
+    return render_template('search.html', results=item)
 
 
 if __name__ == '__main__':
