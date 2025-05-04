@@ -1,0 +1,170 @@
+/* styles.css */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables */
+:root {
+    --searchBg: #ffffff;
+    --fg: #000000;
+    --fontFamily: 'Roboto Mono', monospace;
+}
+
+/* Base styles */
+html, body {
+    width: 100%;
+    height: 100%;
+    background: var(--searchBg);
+    font-family: var(--fontFamily);
+}
+
+/* homepage */
+/* Search */
+#search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+#search-field {
+    width: 100%;
+    max-width: 1400px;
+    padding: 0.75em 1em;
+    font-size: 3.5rem;
+    color: var(--fg);
+    background: var(--searchBg);
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+
+/* about button */
+#about {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.2rem;
+}
+
+#about a {
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#about a:hover {
+    text-decoration: underline;
+    color: #000; 
+    cursor: pointer;
+}
+
+
+/* book page */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh; */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px; 
+}
+
+.card {
+    width: 100%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.book-image {
+    width: 40%;
+    object-fit: contain;
+    max-height: 100%;
+}
+
+.book-info {
+    margin-left:2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* creates scroll option for description if it's too long */
+.description {
+    max-height: 60%;
+    overflow: auto;
+}
+
+h1 {
+    margin: 0 0 10px;
+    color: #333;
+    font-size: 1.8em;
+}
+
+h2 {
+    margin: 10px 0 20px;
+    color: #555;
+    font-size: 1.3em;
+}
+
+p {
+    color: #444;
+    line-height: 1.5;
+}
+
+.details {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.details span {
+    font-size: 0.95em;
+    color: #666;
+}
+
+.back-container {
+    text-align: center;
+}
+
+.back-button {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 1.5em;
+}
+
+/* adjust for smaller screens */
+@media (max-width: 600px) {
+    .card {
+        flex-direction: column;
+    }
+
+    .book-image {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+    }
+}

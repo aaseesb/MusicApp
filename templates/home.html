@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <!-- main content -->
+    <div id="title">
+        <form action="/search" method="get">
+            <input id="search-field" type="text" name="query" placeholder="" autofocus required />
+        </form>
+    </div>
+    <div id="artist">
+        <form action="/search" method="get">
+            <input id="search-field" type="text" name="query" placeholder="" autofocus required />
+        </form>
+    </div>
+
+</body>
+
+</html>
