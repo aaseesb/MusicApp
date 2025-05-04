@@ -3,9 +3,9 @@ from releases import Song, Album
 import os
 
 # initialize apis
-discogs_token = os.environ.get("DISCOGS_TOKEN")
-# youtube_token = os.environ.get("YOUTUBE_TOKEN")
+discogs_token = 'SpMHEMYSUESJOxYLMrtLtdXCfGsmNwadxdUBcZIo'
 d = discogs_client.Client('SampleMusicApp/0.1', user_token=discogs_token)
+# youtube_token = 'AIzaSyAbmh1uFD5_lk5Fu5MEFVuwd7PqJMJFxwE'
 # youtube = build('youtube', 'v3', developerKey=youtube_token)
 
 class Engine():
@@ -59,3 +59,6 @@ class Engine():
         # return the list of albums and songs to display
         return results
     
+# e = Engine()
+# list = e.search("shake it off", "taylor swift")
+# print(list[0].title, "  ", list[0].artist, list[0].image)

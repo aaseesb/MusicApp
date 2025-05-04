@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <!-- display results of search -->
+            {% for item in results %}
+            <div class="card">
+                <h3>{{item.title}}</h3>
+                <p>{{item.artist}}</p>
+                <img class="item-image" src="{{ item.image }}" onerror="this.style.display='none';">
+            </div>
+            {% endfor %}
+            <!-- back button -->
+            <div class="back-container">
+                <a href="/" class="back-button">⬅</a>
+            </div>
+        </div>
+    </body>
+</html>

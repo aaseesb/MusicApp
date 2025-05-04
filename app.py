@@ -3,15 +3,25 @@ from engine import Engine
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/')
 def home():
+    return render_template('home.html')
+
+@app.route('/search')
+def search():
+    title = request.args.get('title')
+    print(title)
+    artist = request.args.get('artist')
+    print(artist)
+    
     results = []
-    if request.method == 'POST':
-        title = request.form['title']
-        artist = request.form['artist']
-        engine = Engine()
-        results = engine.search(title, artist)
-    return render_template('home.html', results = results)
+    engine = Engine()
+    results = engine.search(title, artist)
+    # for item in results:
+    #     print(item.title, " ", item.image)
+    
+    return render_template('search.html', results=results)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
