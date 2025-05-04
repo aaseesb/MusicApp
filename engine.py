@@ -1,12 +1,11 @@
 import discogs_client
 from releases import Song, Album
 import os
+from dotenv import find_dotenv, load_dotenv
 
 # initialize apis
-discogs_token = 'SpMHEMYSUESJOxYLMrtLtdXCfGsmNwadxdUBcZIo'
+discogs_token = os.getenv("DISCOGS_KEY")
 d = discogs_client.Client('SampleMusicApp/0.1', user_token=discogs_token)
-# youtube_token = 'AIzaSyAbmh1uFD5_lk5Fu5MEFVuwd7PqJMJFxwE'
-# youtube = build('youtube', 'v3', developerKey=youtube_token)
 
 class Engine():
     # searching for a song through discogs api using title and artist
