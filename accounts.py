@@ -8,6 +8,7 @@ class AccountCreation:
 
     def account_exists(self):
         accounts = db.get_account_by_name(db.get_db(), self.username)
+        print(accounts)
         if accounts == []:
             return False
         
@@ -15,6 +16,7 @@ class AccountCreation:
 
     def check_correct_password(self):
         accounts = db.get_account_by_name(db.get_db(), self.username)
+        print(accounts[0][2])
         if accounts[0][2] == self.password:
             return True
         
@@ -22,3 +24,4 @@ class AccountCreation:
 
     def signup(self):
         db.add_account(db.get_db(), self.username, self.password)
+

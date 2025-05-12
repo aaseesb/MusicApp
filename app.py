@@ -29,9 +29,9 @@ def login():
         account = AccountCreation(username, password)
 
         if account.account_exists:
-            if account.check_password:
+            if account.check_correct_password:
                 # create a session with username since user was able to log in
-                session['username'] = username
+                # session['username'] = username
                 return redirect('/')
             else:
                 message = "Incorrect password"
@@ -40,11 +40,28 @@ def login():
 
     return render_template("login.html", message = message)
 
+def signup():
+    message = ""
+    if request.method == 'POST':
+        # retrieve username and password
+        username = request.args.get('username')
+        password = request.args.get('password')
+
+        # create account object
+        account = AccountCreation(username, password)
+
+        if account.account_exists:
+            message = "Account already exists"
+        else:
+            account.signup()
+            return redirect('/login')
+    
+    return render_template("signup.html", message = message)
+
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
