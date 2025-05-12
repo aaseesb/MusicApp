@@ -4,6 +4,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <!-- login button -->
+        <a href="{{ url_for('login') }}" class="button">Login</a>
+        <!-- page contents -->
         <div class="container">
             <!-- display results of search -->
             <div class="card">
@@ -21,7 +24,7 @@
             </div>
             <!-- back button -->
             <div class="back-container">
-                <a href="/" class="back-button">⬅</a>
+                <a href="/" class="button">⬅</a>
             </div>
         </div>
     </body>

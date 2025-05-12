@@ -10,16 +10,15 @@
 </head>
 
 <body>
-    <!-- login button -->
-    <a href="{{ url_for('login') }}" class="button">Login</a>
     <!-- page contents -->
     <div class="container">
         <!-- search bars -->
-        <form action="/result" method="get" class="search">
-            <input class="search-field" type="text" name="title" placeholder="Title" autofocus required />
-            <input class="search-field" type="text" name="artist" placeholder="Artist" autofocus required />
-            <button type="submit" style="display:none;">Search</button>
+        <form action="/login" method="get" class="search">
+            <input class="search-field" type="text" name="username" placeholder="username" autofocus required />
+            <input class="search-field" type="text" name="password" placeholder="password" autofocus required />
+            <button type="submit">Login</button>
         </form>
+        <button type="submit">Sign up</button>
     </div>
 </body>
 

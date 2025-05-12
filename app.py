@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session
 from engine import Engine
+from accounts import AccountCreation
 
 app = Flask(__name__)
 
@@ -7,14 +8,42 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-@app.route('/search')
+@app.route('/result')
 def search():
     title = request.args.get('title')
     artist = request.args.get('artist')
     
     engine = Engine()
     item = engine.search(title, artist)
-    return render_template('search.html', results=item)
+    return render_template('result.html', results=item)
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    message = ""
+    if request.method == 'POST':
+        # retrieve username and password
+        username = request.args.get('username')
+        password = request.args.get('password')
+
+        # create account object
+        account = AccountCreation(username, password)
+
+        if account.account_exists:
+            if account.check_password:
+                # create a session with username since user was able to log in
+                session['username'] = username
+                return redirect('/')
+            else:
+                message = "Incorrect password"
+        else:
+            message = "Account does not exist"
+
+    return render_template("login.html", message = message)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 if __name__ == '__main__':
