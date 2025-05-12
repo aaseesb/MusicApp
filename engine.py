@@ -1,5 +1,5 @@
 import discogs_client
-from releases import Song, Album
+from releases import Song
 import os
 from dotenv import find_dotenv, load_dotenv
 
