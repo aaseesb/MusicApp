@@ -28,8 +28,8 @@ def login():
         # create account object
         account = AccountCreation(username, password)
 
-        if account.account_exists:
-            if account.check_correct_password:
+        if account.account_exists():
+            if account.check_correct_password():
                 # create a session with username since user was able to log in
                 # session['username'] = username
                 return redirect('/')
@@ -50,7 +50,7 @@ def signup():
         # create account object
         account = AccountCreation(username, password)
 
-        if account.account_exists:
+        if account.account_exists():
             message = "Account already exists"
         else:
             account.signup()
