@@ -1,8 +1,9 @@
 import requests
 from fuzzywuzzy import fuzz
-
-#import time
-#initial = time.time()
+from langdetect import detect
+from langdict import language_dictionary
+import time
+initial = time.time()
 
 class Song:
     def __init__(self, query):
@@ -11,106 +12,76 @@ class Song:
         self.artist  = ''
         self.album = ''
         self.date = ''
-        self.language = ''
+        self.language = 'eng'
         self.genres = []
-        self.country = ''
         self.album_art = ''
 
         self.query_num = 0
         self.possible_titles = []
-        self.release_id = ''
-        self.artist_id = ''
         
         self.headers = {
             "User-Agent":"CC-MusicApp"
         }
 
-    # search for release on musicbrainz api
-    def search_recording_musicbrainz(self):
+    def search_itunes(self):
         #api needs a header
-        raw_data = requests.get('https://musicbrainz.org/ws/2/recording/',
-                                    params={
-                                        "query":f"recording:{self.query}",
-                                        "fmt": "json",
-                                        "limit": 10, 
-                                        "inc": "artist-credits+releases"
-                                    },
-                                    headers=self.headers)
+        raw_data = requests.get(
+            "https://itunes.apple.com/search",
+            params={
+                "term": self.query,
+                "limit": 10,
+                "media": "music",
+                "entity": "musicTrack",
+                "lang": "en_us",
+                "country": "us"
+            },
+            headers=self.headers
+        )
         
         json_data = raw_data.json()
-        if not json_data['recordings']:
+
+        if not json_data['results']:
             self.title = "ERROR"
             return
 
-        # append all possible releases from search resul
-        for i in range(9):
-            result = json_data['recordings'][i]['title'] + ' by ' + json_data['recordings'][i]['artist-credit'][0]['name']
-            self.possible_titles.append(result)
-            
+        for i in range(len(json_data['results'])):
+                print(i)
+                result = json_data['results'][i]['trackName'] + ' by ' + json_data['results'][i]['artistName']
+                self.possible_titles.append(result)  
+                
+                matching = fuzz.partial_ratio(self.query.lower(), json_data['results'][i]['trackName'].split(' ')[0].lower() )
+                print(matching) 
 
-            matching = fuzz.partial_ratio(self.query.lower(), json_data['recordings'][i]['title'].split(' ')[0].lower() )
-            print(matching)
-
-            if matching >=80:
-                self.query_num = i
-                break
+                if matching > 90:
+                    self.query_num = i
+                    break
         else:
             self.title = 'ERROR'
             return
+        
+        data = json_data['results'][self.query_num]
 
-        
-        data = json_data['recordings'][self.query_num]
-        self.title = data['title']
-        self.artist = data['artist-credit'][0]['name']
-        
-        self.artist_id = data['artist-credit'][0]['artist']['id']
-        release = data['releases'][0]
-
-        if release != None:
-            self.album = release['title']
-            self.date = release.get('date')
-            self.country = release.get('country')
-            self.release_id = release['id']
-            
-        
-    # retrieve information about release - genre, language
-    def search_release_musicbrainz(self):
-
-        raw_data = requests.get(
-                f"https://musicbrainz.org/ws/2/release/{self.release_id}",
-                params={"inc": "genres+labels", 
-                        "fmt": "json"},
-                headers=self.headers
-            )
-        
-        json_data = raw_data.json()
-        self.language = json_data.get("text-representation", {}).get("language", "Unknown")
-        self.genres = [g["name"] for g in json_data.get("genres", [])]
-        
-        if not self.genres:
-            raw_data = requests.get(
-            f"https://musicbrainz.org/ws/2/artist/{self.artist_id}",
-            params={"inc": "genres", "fmt": "json"},
-            headers=self.headers
-        )
-        json_data = raw_data.json()
-        self.genres = [g["name"] for g in json_data.get("genres", [])]
+        self.title = data['trackName']
+        self.artist = data['artistName']
+        self.album = data['collectionName']
+        self.album_id = data['collectionId']
+        self.date = data.get('releaseDate', '').split('T')[0]
+        self.genre = data['primaryGenreName']
+        self.language = language_dictionary.get(detect(self.title + self.artist + self.album), 'ERROR')
+        self.album_art = data['artworkUrl100']
     
     # retrieve album image
     def get_album_cover(self):
-        self.album_art = f"https://coverartarchive.org/release/{self.release_id}/front"
+        #create something here maybe actually get the cover image from youtube thumbnails
+        pass
 
 # functon to import song
 def song_importer(query):
     song = Song(query)
-    song.search_recording_musicbrainz()
-    #f1 = time.time() - initial
+    song.search_itunes()
+    f1 = time.time() - initial
     if song.title != 'ERROR':
-        song.search_release_musicbrainz()
-        #f2 = time.time() - initial
         song.get_album_cover()
-        print('error')
-        #f3 = time.time() - initial
-        #return(f1,f2,f3,song.title,song.artist,song.album_art,song.country,song.date,song.language,song.album)
-    # return(song.title,song.possible_titles)
-    # return(song)
+        f2 = time.time() - initial
+        return(f2, song.title,song.artist,song.album_art,song.genre,song.date,song.language,song.album)
+    return(song.title,song.possible_titles)
