@@ -1,5 +1,5 @@
 import requests
-from fuzzywuzzy import fuzz
+# from fuzzywuzzy import fuzz
 
 #import time
 #initial = time.time()

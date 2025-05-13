@@ -10,12 +10,6 @@
 </head>
 
 <body>
-    <!-- login button -->
-    {%if session.username %}
-    <a href="{{ url_for('likedsongs') }}" class="button">Liked Songs</a>
-    {% else %}
-    <a href="{{ url_for('login') }}" class="button">Login</a>
-    {% endif %}
     <!-- page contents -->
     <div class="container">
         <!-- search bars -->

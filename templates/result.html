@@ -4,12 +4,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <!-- login button -->
-        {%if session.username %}
-        <a href="{{ url_for('likedsongs') }}" class="button">Liked Songs</a>
-        {% else %}
-        <a href="{{ url_for('login') }}" class="button">Login</a>
-        {% endif %}
         <!-- page contents -->
         <div class="container">
             <!-- display results of search -->
@@ -27,22 +21,22 @@
                 <img class="item-image" src="{{ results.image }}" onerror="this.style.display='none';">
             </div>
             <!-- like button, only works if session exists-->
-            <form action="/addliked" method="post">
+            <!-- <form action="/addliked" method="post">
                 <input type="hidden" name="song" value="{{ results }}">
                 <button type="submit" id="like">Like</button>
-            </form>
+            </form> -->
             <!-- back button -->
             <div class="back-container">
                 <a href="/" class="button">⬅</a>
             </div>
         </div>
 
-        <script>
+        <!-- <script>
             // allows js to see whether session exists
             window.username = "{{ session['username'] }}";
             window.playlist = "{{ session['playlist'] }}";
             window.song = "{{ results }}"
-        </script>
+        </script> -->
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
