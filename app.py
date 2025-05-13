@@ -1,16 +1,11 @@
 from flask import Flask, render_template, request, redirect, session
 from engine import Engine
 import accounts
+import os
 
 app = Flask(__name__)
 
-with app.app_context():
-    print(50)
-    db = get_db();
-    print(db)
-    create_tables(db)
-
-@app.teardown_appcontext(close_db)
+app.secret_key = os.urandom(24)
 
 @app.route('/')
 def home():
@@ -42,7 +37,7 @@ def login():
         if account.account_exists():
             if account.check_correct_password():
                 # create a session with username since user was able to log in
-                # session['username'] = username
+                session['username'] = username
                 return redirect('/')
             else:
                 message = "Incorrect password"
@@ -51,7 +46,7 @@ def login():
 
     return render_template("login.html", message = message)
 
-"""
+@app.route('/signup', methods=['GET','POST'])
 def signup():
     message = ""
     if request.method == 'POST':
@@ -60,7 +55,8 @@ def signup():
         password = request.form.get('password')
 
         # create account object
-        account = account.AccountCreation(username, password)
+        db = accounts.flask_get_db()
+        account = accounts.AccountCreation(username, password, db)
 
         if account.account_exists():
             message = "Account already exists"
@@ -69,7 +65,6 @@ def signup():
             return redirect('/login')
     
     return render_template("signup.html", message = message)
-"""
 
 @app.route('/logout')
 def logout():
