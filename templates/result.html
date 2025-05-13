@@ -4,8 +4,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <!-- login button -->
-        <a href="{{ url_for('login') }}" class="button">Login</a>
         <!-- page contents -->
         <div class="container">
             <!-- display results of search -->
@@ -22,10 +20,23 @@
                 <!-- hide image if it doesn't exist -->
                 <img class="item-image" src="{{ results.image }}" onerror="this.style.display='none';">
             </div>
+            <!-- like button, only works if session exists-->
+            <!-- <form action="/addliked" method="post">
+                <input type="hidden" name="song" value="{{ results }}">
+                <button type="submit" id="like">Like</button>
+            </form> -->
             <!-- back button -->
             <div class="back-container">
                 <a href="/" class="button">⬅</a>
             </div>
         </div>
+
+        <!-- <script>
+            // allows js to see whether session exists
+            window.username = "{{ session['username'] }}";
+            window.playlist = "{{ session['playlist'] }}";
+            window.song = "{{ results }}"
+        </script> -->
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
