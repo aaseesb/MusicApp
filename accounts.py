@@ -26,21 +26,3 @@ class AccountCreation:
 
     def signup(self):
         db.add_account(db.get_db(), self.username, self.password)
-
-
-
-
-# retrieve username and password
-username = 'aasees'
-password = 'apple123'
-
-# create account object
-account = AccountCreation(username, password)
-
-if account.account_exists():
-    if account.check_correct_password():
-        print("logged in")
-    else:
-        print("Incorrect password")
-else:
-    print("Account does not exist")

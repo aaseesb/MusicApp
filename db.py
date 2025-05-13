@@ -5,7 +5,11 @@ DATABASE = 'data.db'
 
 def get_db():
     if 'db' not in g:
-        g.db = sqlite3.connect(DATABASE)
+        g.db = sqlite3.connect(
+            DATABASE,
+            detect_types=sqlite3.PARSE_DECLTYPES
+        )
+        # g.db = sqlite3.connect(DATABASE)
         g.db.row_factory = sqlite3.Row
     
     return g.db
@@ -16,6 +20,7 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
+
 
 # storing create table, insert, and retrieve commands to a variable in python
 CREATE_TABLE = "Create table if not exists accounts(id integer primary key, user text, userpass text);"

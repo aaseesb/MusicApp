@@ -1,8 +1,17 @@
 from flask import Flask, render_template, request, redirect, session
 from engine import Engine
 from accounts import AccountCreation
+from db import get_db, create_tables, close_db
 
 app = Flask(__name__)
+
+with app.app_context():
+    print(50)
+    db = get_db();
+    print(db)
+    create_tables(db)
+
+@app.teardown_appcontext(close_db)
 
 @app.route('/')
 def home():
