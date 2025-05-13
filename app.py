@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, session
-from engine import Engine
 import accounts
 import os
 
@@ -17,11 +16,6 @@ def home():
 @app.route('/result')
 def search():
     title = request.args.get('title')
-    artist = request.args.get('artist')
-    
-    engine = Engine()
-    item = engine.search(title, artist)
-    return render_template('result.html', results=item)
 
 
 # song liking
