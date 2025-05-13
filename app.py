@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(24)
 
+# song searching
+
 @app.route('/')
 def home():
     
@@ -21,6 +23,26 @@ def search():
     item = engine.search(title, artist)
     return render_template('result.html', results=item)
 
+
+# song liking
+
+@app.route('/likedsongs')
+def likedsongs():
+    return render_template('playlist.html')
+
+@app.route('/addliked', methods=['POST'])
+def addliked():
+    # retrieve song and add to session playlist
+    song = request.args.get('song')
+    session['playlist'].append(song)
+
+    # add to playlist data for javascript
+
+    # reload same page
+    return render_template('result.html', results=song, )
+
+
+# account use
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -70,6 +92,8 @@ def signup():
 def logout():
     session.clear()
     return redirect('/')
+
+
 
 if __name__ == '__main__':
     accounts.create_tables()
