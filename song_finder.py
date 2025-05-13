@@ -1,5 +1,5 @@
 import requests
-# from fuzzywuzzy import fuzz
+from fuzzywuzzy import fuzz
 
 #import time
 #initial = time.time()
@@ -25,6 +25,7 @@ class Song:
             "User-Agent":"CC-MusicApp"
         }
 
+    # search for release on musicbrainz api
     def search_recording_musicbrainz(self):
         #api needs a header
         raw_data = requests.get('https://musicbrainz.org/ws/2/recording/',
@@ -41,6 +42,7 @@ class Song:
             self.title = "ERROR"
             return
 
+        # append all possible releases from search resul
         for i in range(9):
             result = json_data['recordings'][i]['title'] + ' by ' + json_data['recordings'][i]['artist-credit'][0]['name']
             self.possible_titles.append(result)
@@ -71,7 +73,7 @@ class Song:
             self.release_id = release['id']
             
         
-        
+    # retrieve information about release - genre, language
     def search_release_musicbrainz(self):
 
         raw_data = requests.get(
@@ -94,10 +96,12 @@ class Song:
         json_data = raw_data.json()
         self.genres = [g["name"] for g in json_data.get("genres", [])]
     
+    # retrieve album image
     def get_album_cover(self):
         self.album_art = f"https://coverartarchive.org/release/{self.release_id}/front"
 
-def SongImporter(query):
+# functon to import song
+def song_importer(query):
     song = Song(query)
     song.search_recording_musicbrainz()
     #f1 = time.time() - initial
@@ -105,6 +109,8 @@ def SongImporter(query):
         song.search_release_musicbrainz()
         #f2 = time.time() - initial
         song.get_album_cover()
+        print('error')
         #f3 = time.time() - initial
         #return(f1,f2,f3,song.title,song.artist,song.album_art,song.country,song.date,song.language,song.album)
-    #return(song.title,song.possible_titles)
+    # return(song.title,song.possible_titles)
+    # return(song)

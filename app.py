@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
+from song_finder import Song, song_importer
 import accounts
 import os
 
@@ -16,6 +17,10 @@ def home():
 def search():
     title = request.args.get('title')
 
+
+    return render_template('result.html', )
+    # result = song_importer(title)
+    # return render_template('result.html', results = result)
 
 # # song liking
 
@@ -85,7 +90,6 @@ def search():
 # def logout():
 #     session.clear()
 #     return redirect('/')
-
 
 
 if __name__ == '__main__':

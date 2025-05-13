@@ -1,21 +1,18 @@
-// // when like button is pressed
-// document.getElementById('like').addEventListener('click', function () {
-//     // prevents users from liking songs if they are not logged in
-//     if (!window.username) {
-//         event.preventDefault();
-//         alert("Please log in to like songs.");
-//     }
-//     // prevents users from liking songs if they have already liked them
-//     const songTitle = window.song.title;  // Get the title of the current song
-//     const songArtist = window.song.artist; // Get the artist of the current song
+// update play button based on state
+const playIcon = document.getElementById('play-button');
+const audio = document.getElementById('audio-player');
 
-//     // Check if a song with the same title and artist exists in the playlist
-//     const songExists = window.playlist.some(song => 
-//         song.title === songTitle && song.artist === songArtist
-//     );
-    
-//     if(songExists) {
-//         event.preventDefault();
-//         alert("You have already liked this song.");
-//     }
-// });
+playIcon.classList.add('fa');
+playIcon.classList.add('fa-play');
+
+playIcon.addEventListener('click', () => {
+    if (playIcon.classList.contains('fa-play')) {
+        audio.play();
+        playIcon.classList.remove('fa','fa-play');
+        playIcon.classList.add('fa', 'fa-pause')
+    } else {
+        audio.pause();
+        playIcon.classList.remove('fa','fa-pause')
+        playIcon.classList.add('fa','fa-play');
+    }
+});
