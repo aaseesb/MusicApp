@@ -3,6 +3,7 @@ from fuzzywuzzy import fuzz
 from langdetect import detect
 from langdict import language_dictionary
 import time
+import yt_dlp
 initial = time.time()
 
 class Song:
@@ -22,6 +23,9 @@ class Song:
         self.headers = {
             "User-Agent":"CC-MusicApp"
         }
+
+        self.url = ''
+        self.video_id = ''
 
     def search_itunes(self):
         #api needs a header
@@ -75,6 +79,27 @@ class Song:
         #create something here maybe actually get the cover image from youtube thumbnails
         pass
 
+    def retrieve_audio(self):
+        query = f"{self.title} by {self.artist} song"
+        search_query = f"ytsearch1:{query}"
+        ydl_opts = {
+            'format': 'bestaudio[ext=webm]/bestaudio',
+            'quiet': True,
+            'noplaylist': True,
+            'extractaudio': True,
+            'skip_download': True
+        }
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(search_query, download=False)
+            
+            if not info.get('entries'):
+                raise Exception('No video found')
+            video_info = info['entries'][0]
+            self.url = video_info.get('url')
+            self.video_id = video_info['id']
+
+
 # functon to import song
 def song_importer(query):
     song = Song(query)
@@ -82,6 +107,8 @@ def song_importer(query):
     f1 = time.time() - initial
     if song.title != 'ERROR':
         song.get_album_cover()
+        song.retrieve_audio()
         f2 = time.time() - initial
-        return(f2, song.title,song.artist,song.album_art,song.genre,song.date,song.language,song.album)
-    return(song.title,song.possible_titles)
+        # return(f2, song.title,song.artist,song.album_art,song.genre,song.date,song.language,song.album)
+    # return(song.title,song.possible_titles)
+    return(song)

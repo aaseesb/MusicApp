@@ -11,12 +11,12 @@
             <div class="card">
                 <div class="left-column">
                     <div class="item-info">
-                        <h3>Title</h3>
-                        <p>Artist</p>
-                        <span>Release Year, Genre, Language</span>
+                        <h3>{{results.title}}</h3>
+                        <p>{{results.artist}}</p>
+                        <span>{{results.date}}, {{results.genre}}, {{results.language}}</span>
                     </div>
                     <audio controls id="audio-player">
-                        <source src="path_to_your_audio_file.mp3" type="audio/mp3">
+                        <source src="{{results.url}}" type="audio/webm">
                     </audio>
                     <div class="audio-container">
                         <button id="play-button"></button>
@@ -26,8 +26,8 @@
                         <span id="duration" class="time">0:00</span>
                     </div>
                 </div>
-                <!-- hide image if it doesn't exist -->
-                <img class="item-image" src="{{ url_for('static',filename='resultspage_conceptart.png') }}">
+                <!-- <img class="item-image" src="{{ url_for('static',filename='resultspage_conceptart.png') }}"> -->
+                <img class="item-image" src="{{results.album_art}}">
             </div>
             <!-- like button, only works if session exists-->
             <!-- <form action="/addliked" method="post">
@@ -40,11 +40,23 @@
             </div>
         </div>
 
+
+        <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+        <script>
+            const audioPlayer = document.getElementById('audio-player');
+            const audioUrl = '{{ results.url }}';
+
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(audioUrl);
+                hls.attachMedia(audioPlayer);
+            } else if (audioPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                // For browsers that support HLS natively (e.g., Safari)
+                audioPlayer.src = audioUrl;
+            }
+        </script> -->
         <!-- <script>
-            // allows js to see whether session exists
-            window.username = "{{ session['username'] }}";
-            window.playlist = "{{ session['playlist'] }}";
-            window.song = "{{ results }}"
+            const audioUrl = '{{ results.url }}';
         </script> -->
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>

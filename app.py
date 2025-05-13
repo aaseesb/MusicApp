@@ -18,9 +18,9 @@ def search():
     title = request.args.get('title')
 
 
-    return render_template('result.html', )
-    # result = song_importer(title)
-    # return render_template('result.html', results = result)
+    # return render_template('result.html', )
+    result = song_importer(title)
+    return render_template('result.html', results = result)
 
 # # song liking
 

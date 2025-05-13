@@ -95,9 +95,9 @@ body {
 }
 
 /* audio player */
-audio {
+/* audio {
     display:none;
-}
+} */
 
 /* Custom Audio Controls */
 .audio-container {
@@ -106,73 +106,6 @@ audio {
     justify-content: center;
     gap: 20px;
     margin-top: 10px;
-}
-
-/* Play/Pause button */
-.play-pause-btn {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.play-pause-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Progress Bar */
-.progress-container {
-    flex-grow: 1;
-    position: relative;
-    width: 100%;
-    height: 10px;
-    background-color: #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.progress-bar {
-    width: 0;
-    height: 100%;
-    background-color: #007BFF;
-    border-radius: 5px;
-}
-
-/* Volume Control */
-.volume-slider {
-    -webkit-appearance: none;
-    width: 100px;
-    height: 6px;
-    background: #ddd;
-    border-radius: 5px;
-    outline: none;
-}
-
-.volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    background: #007BFF;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.volume-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: #007BFF;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-/* Play/Pause Icon */
-.play-pause-btn i {
-    font-size: 20px;
 }
 
 /* buttons */
