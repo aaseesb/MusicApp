@@ -11,19 +11,24 @@
             <div class="card">
                 <div class="left-column">
                     <div class="item-info">
-                        <h3>{{results.title}}</h3>
-                        <p>{{results.artist}}</p>
-                        <span>{{results.date}}, {{results.genre}}, {{results.language}}</span>
+                        <h1>{{results.title}}</h1>
+                        <h2>{{results.artist}}</h2>
+                        <p>{{results.date.split('-')[0]}}, {{results.genre}}, {{results.language}}</p>
+                        <p>url {{results.album_art}}</p>
                     </div>
                     <audio controls id="audio-player">
                         <source src="{{results.url}}" type="audio/webm">
                     </audio>
                     <div class="audio-container">
-                        <button id="play-button"></button>
-                        <input type="range" id="seek-slider" max="100" value="0">
-                        <span id="current-time" class="time">0:00</span>
-                        <span>/</span>
-                        <span id="duration" class="time">0:00</span>
+                        <div class="separation">
+                            <a id="play-button"></a>
+                            <input type="range" id="progress" value="0">
+                        </div>
+                        <div class="separation">
+                            <p id="current-time" class="time">0:00</p>
+                            <p>/</p>
+                            <p id="duration" class="time">0:00</p>
+                        </div>
                     </div>
                 </div>
                 <!-- <img class="item-image" src="{{ url_for('static',filename='resultspage_conceptart.png') }}"> -->
