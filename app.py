@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
 from engine import Engine
-from accounts import AccountCreation
-from db import get_db, create_tables, close_db
+import accounts
 
 app = Flask(__name__)
 
@@ -15,6 +14,7 @@ with app.app_context():
 
 @app.route('/')
 def home():
+    
     return render_template('home.html')
 
 @app.route('/result')
@@ -26,16 +26,18 @@ def search():
     item = engine.search(title, artist)
     return render_template('result.html', results=item)
 
+
 @app.route('/login', methods=['GET','POST'])
 def login():
     message = ""
     if request.method == 'POST':
         # retrieve username and password
-        username = request.args.get('username')
-        password = request.args.get('password')
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         # create account object
-        account = AccountCreation(username, password)
+        db = accounts.flask_get_db()
+        account = accounts.AccountCreation(username, password, db)
 
         if account.account_exists():
             if account.check_correct_password():
@@ -49,15 +51,16 @@ def login():
 
     return render_template("login.html", message = message)
 
+"""
 def signup():
     message = ""
     if request.method == 'POST':
         # retrieve username and password
-        username = request.args.get('username')
-        password = request.args.get('password')
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         # create account object
-        account = AccountCreation(username, password)
+        account = account.AccountCreation(username, password)
 
         if account.account_exists():
             message = "Account already exists"
@@ -66,6 +69,7 @@ def signup():
             return redirect('/login')
     
     return render_template("signup.html", message = message)
+"""
 
 @app.route('/logout')
 def logout():
@@ -73,4 +77,5 @@ def logout():
     return redirect('/')
 
 if __name__ == '__main__':
+    accounts.create_tables()
     app.run(debug=True)
