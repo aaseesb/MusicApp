@@ -3,7 +3,10 @@ from fuzzywuzzy import fuzz
 from langdetect import detect
 from langdict import language_dictionary
 import time
+
+#the itunes search takes ~1.5 seconds and the image search takes ~0.5 seconds but this bastard youtube downloader bullshit takes 20 seconds
 import yt_dlp
+
 initial = time.time()
 
 class Song:
@@ -17,6 +20,7 @@ class Song:
         self.genres = []
         self.album_art = ''
 
+        self.itunes_data = ''
         self.query_num = 0
         self.possible_titles = []
         
@@ -28,12 +32,11 @@ class Song:
         self.video_id = ''
 
     def search_itunes(self):
-        #api needs a header
         raw_data = requests.get(
             "https://itunes.apple.com/search",
             params={
                 "term": self.query,
-                "limit": 10,
+                "limit": 5,
                 "media": "music",
                 "entity": "musicTrack",
                 "lang": "en_us",
@@ -43,11 +46,11 @@ class Song:
         )
         
         json_data = raw_data.json()
-
+        
+        b=time.time()
         if not json_data['results']:
             self.title = "ERROR"
             return
-
         for i in range(len(json_data['results'])):
                 print(i)
                 result = json_data['results'][i]['trackName'] + ' by ' + json_data['results'][i]['artistName']
@@ -62,23 +65,30 @@ class Song:
         else:
             self.title = 'ERROR'
             return
-        
         data = json_data['results'][self.query_num]
 
         self.title = data['trackName']
         self.artist = data['artistName']
-        self.album = data['collectionName']
-        self.album_id = data['collectionId']
         self.date = data.get('releaseDate', '').split('T')[0]
         self.genre = data['primaryGenreName']
         self.language = language_dictionary.get(detect(self.title + self.artist + self.album), 'ERROR')
-        self.album_art = data['artworkUrl100']
+        
+        self.itunes_data = data
     
     # retrieve album image
     def get_album_cover(self):
-        #create something here maybe actually get the cover image from youtube thumbnails
-        pass
+        url = f'https://api.deezer.com/search/album?q={self.title} {self.artist}'
+        response =  requests.get(url)
+        data = response.json()
+        if data['data']:
+            self.album = data['data'][0]['title']
+            self.album_art = data['data'][0]['cover_big']
+            
+        else:
+            self.album = self.itunes_data['collectionName']
+            self.album_art = self.itunes_data['artworkUrl100']
 
+    
     def retrieve_audio(self):
         query = f"{self.title} by {self.artist} song"
         search_query = f"ytsearch1:{query}"
@@ -99,16 +109,13 @@ class Song:
             self.url = video_info.get('url')
             self.video_id = video_info['id']
 
-
 # functon to import song
 def song_importer(query):
     song = Song(query)
     song.search_itunes()
-    f1 = time.time() - initial
     if song.title != 'ERROR':
         song.get_album_cover()
         song.retrieve_audio()
-        f2 = time.time() - initial
-        # return(f2, song.title,song.artist,song.album_art,song.genre,song.date,song.language,song.album)
-    # return(song.title,song.possible_titles)
+        #return(song.title,song.artist,song.album_art,song.album,song.url)
+    #return(song.title,song.possible_titles)
     return(song)
