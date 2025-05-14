@@ -4,6 +4,8 @@ from langdetect import detect
 from langdict import language_dictionary
 import time
 import yt_dlp
+import os
+
 initial = time.time()
 
 class Song:
@@ -76,7 +78,6 @@ class Song:
     
     # retrieve album image
     def get_album_cover(self):
-        #create something here maybe actually get the cover image from youtube thumbnails
         pass
 
     def retrieve_audio(self):
