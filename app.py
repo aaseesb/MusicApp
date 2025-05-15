@@ -1,11 +1,9 @@
-from flask import Flask, render_template, request, redirect, session
-from songconv import Song, song_importer #is there a reason both are imported?
+from flask import Flask, render_template, request, redirect, session, jsonify
+from songconv import song_importer, get_audio
 import accounts
 import os
 
 app = Flask(__name__)
-
-# app.secret_key = os.urandom(24)
 
 # song searching
 
@@ -17,10 +15,20 @@ def home():
 def search():
     title = request.args.get('title')
 
-
-    # return render_template('result.html', )
     result = song_importer(title)
     return render_template('result.html', results = result)
+
+# route to retrieve audio after page has loaded
+@app.route('/retrieve-audio', methods=['POST']) 
+def retrieve_audio():
+    print('running')
+    data = request.get_json()
+    title = data.get('title')
+    artist = data.get('artist')
+    print(title, artist)
+    url = get_audio(title, artist)
+    print('url')
+    return jsonify(url)
 
 # # song liking
 
