@@ -14,13 +14,13 @@
                         <h1>{{results.title}}</h1>
                         <h2>{{results.artist}}</h2>
                         <p>{{results.date.split('-')[0]}}, {{results.genre}}, {{results.language}}</p>
-                        <p>url {{results.album_art}}</p>
                     </div>
                     <audio controls id="audio-player">
-                        <source src="{{results.url}}" type="audio/webm">
+                        <source id="audio-source" type="audio/webm" data-title="{{results.title}}" data-artist ="{{results.artist}}">
                     </audio>
                     <div class="audio-container">
                         <div class="separation">
+                            <!-- <a id="play-button" data-source="{{results.url}}"></a> -->
                             <a id="play-button"></a>
                             <input type="range" id="progress" value="0">
                         </div>

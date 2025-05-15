@@ -29,7 +29,6 @@ class Song:
         }
 
         self.url = ''
-        self.video_id = ''
 
     def search_itunes(self):
         raw_data = requests.get(
@@ -88,34 +87,32 @@ class Song:
             self.album = self.itunes_data['collectionName']
             self.album_art = self.itunes_data['artworkUrl100']
 
-    
-    def retrieve_audio(self):
-        query = f"{self.title} by {self.artist} song"
-        search_query = f"ytsearch1:{query}"
-        ydl_opts = {
-            'format': 'bestaudio[ext=webm]/bestaudio',
-            'quiet': True,
-            'noplaylist': True,
-            'extractaudio': True,
-            'skip_download': True
-        }
-
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(search_query, download=False)
-            
-            if not info.get('entries'):
-                raise Exception('No video found')
-            video_info = info['entries'][0]
-            self.url = video_info.get('url')
-            self.video_id = video_info['id']
-
-# functon to import song
+# function to import song
 def song_importer(query):
     song = Song(query)
     song.search_itunes()
     if song.title != 'ERROR':
         song.get_album_cover()
-        song.retrieve_audio()
+        # song.retrieve_audio()
         #return(song.title,song.artist,song.album_art,song.album,song.url)
     #return(song.title,song.possible_titles)
     return(song)
+
+def get_audio(title, artist):
+    query = f"{title} by {artist} song"
+    search_query = f"ytsearch1:{query}"
+    ydl_opts = {
+        'format': 'bestaudio[ext=webm]/bestaudio',
+        'quiet': True,
+        'noplaylist': True,
+        'extractaudio': True,
+        'skip_download': True
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(search_query, download=False)
+        
+        if not info.get('entries'):
+            raise Exception('No video found')
+        video_info = info['entries'][0]
+        return video_info.get('url')

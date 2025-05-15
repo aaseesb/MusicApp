@@ -135,6 +135,7 @@ audio {
 }
 
 #play-button:hover {
+    /* cursor:default; */
     cursor: pointer;
 }
 
