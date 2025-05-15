@@ -13,10 +13,16 @@ def home():
 
 @app.route('/result')
 def search():
+
     title = request.args.get('title')
 
     result = song_importer(title)
-    return render_template('result.html', results = result)
+    print(result.title)
+    print(result.possible_titles)
+    if result.title != 'ERROR':
+        return render_template('result.html', results = result)
+    else:
+        return render_template('error.html', song_suggestions = result.possible_titles)
 
 # route to retrieve audio after page has loaded
 @app.route('/retrieve-audio', methods=['POST']) 

@@ -163,3 +163,14 @@ input[type="range"] {
     color: black;
     font-size: 1.5em;
 }
+
+.othersongs a {
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Roboto Mono', monospace;
+  }
+  
+  .othersongs a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }

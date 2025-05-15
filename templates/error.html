@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Not Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+
+    <div class = "container">
+
+      <h1>No song found</h1>
+
+      <h2>Sorry we couldnt find any song by the name of {{ user_query }}, did you mean:</h2>
+     
+      <ul class="othersongs">
+        {% for song in song_suggestions %}
+          <li>
+            <a href="{{ url_for('search', query=song) }}">{{ song }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="back-container">
+        <a href="/" class="back-button">⬅</a>
+      </div>
+    </div>
+  </body>
+</html>
