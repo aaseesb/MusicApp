@@ -16,56 +16,32 @@
                     <h1>{{results.title}}</h1>
                     <h2>{{results.artist}}</h2>
                     <p>{{results.date.split('-')[0]}}, {{results.genre}}, {{results.language}}</p>
-                </div>
-                <audio controls id="audio-player">
-                    <source id="audio-source" type="audio/webm" data-title="{{results.title}}"
-                        data-artist="{{results.artist}}">
-                </audio>
-                <div class="audio-container">
-                    <div class="separation">
-                        <!-- <a id="play-button" data-source="{{results.url}}"></a> -->
+                    <br>
+                    <audio controls 
+                            id="audio-player"
+                            data-title="{{results.title}}" 
+                            data-artist="{{results.artist}}">
+                    </audio>
+                    <div class="separation" >
                         <a id="play-button"></a>
                         <input type="range" id="progress" value="0">
                     </div>
-                    <div class="separation">
+                    <div class="separation right">
                         <p id="current-time" class="time">0:00</p>
                         <p>/</p>
                         <p id="duration" class="time">0:00</p>
                     </div>
                 </div>
             </div>
-            <!-- <img class="item-image" src="{{ url_for('static',filename='resultspage_conceptart.png') }}"> -->
             <img class="item-image" src="{{results.album_art}}">
         </div>
-        <!-- like button, only works if session exists-->
-        <!-- <form action="/addliked" method="post">
-                <input type="hidden" name="song" value="{{ results }}">
-                <button type="submit" id="like">Like</button>
-            </form> -->
         <!-- back button -->
         <div class="back-container">
             <a href="/" class="button">⬅</a>
         </div>
+        <canvas id="canvas"></canvas>
     </div>
 
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-        <script>
-            const audioPlayer = document.getElementById('audio-player');
-            const audioUrl = '{{ results.url }}';
-
-            if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource(audioUrl);
-                hls.attachMedia(audioPlayer);
-            } else if (audioPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                // For browsers that support HLS natively (e.g., Safari)
-                audioPlayer.src = audioUrl;
-            }
-        </script> -->
-    <!-- <script>
-            const audioUrl = '{{ results.url }}';
-        </script> -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 

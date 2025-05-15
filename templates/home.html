@@ -2,27 +2,28 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Search</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home Search</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <!-- page contents -->
-    <div class="container">
-        <!-- search bars -->
-        <form action="/result" method="get" class="search">
-            <input class="search-field" type="text" name="title" placeholder="Title" autofocus required />
-            <button type="submit" style="display:none;">Search</button>
-        </form>
-    </div>
-    
+  <!-- page contents -->
+  <div class="container">
+    <!-- search bars -->
+    <form action="/result" method="get" class="search">
+      <input class="search-field" type="text" name="title" placeholder="Title" autofocus required />
+      <button type="submit" style="display:none;">Search</button>
+    </form>
+  </div>
+
   <div id="about">
     <a href="{{ url_for('about') }}">About this project :O</a>
   </div>
   <!-- javascript link -->
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>

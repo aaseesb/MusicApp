@@ -3,6 +3,7 @@ from fuzzywuzzy import fuzz
 from langdetect import detect
 from langdict import language_dictionary
 import time
+import os
 
 #the itunes search takes ~1.5 seconds and the image search takes ~0.5 seconds but this bastard youtube downloader bullshit takes 20 seconds
 import yt_dlp
@@ -97,20 +98,44 @@ def song_importer(query):
     return(song)
 
 def get_audio(title, artist):
+    output_dir = 'static/downloads'
+    os.makedirs(output_dir, exist_ok=True)
+
+    # clear previous downloads
+    for subdir, dirs, files in os.walk(output_dir):
+        for filename in files:
+            filepath = os.path.join(subdir, filename)
+            try:
+                os.remove(filepath)
+            except Exception as e:
+                print(f"Failed to delete {filepath}: {e}")
+
     query = f"{title} by {artist} song"
     search_query = f"ytsearch1:{query}"
     ydl_opts = {
-        'format': 'bestaudio[ext=webm]/bestaudio',
+        'format': 'bestaudio/best',
+        'outtmpl': f'{output_dir}/{title}.%(ext)s',
         'quiet': True,
         'noplaylist': True,
         'extractaudio': True,
-        'skip_download': True
+        # 'postprocessors': [{
+        #     'key': 'FFmpegExtractAudio',
+        #     'preferredcodec': 'webm',
+        #     'preferredquality': '192',
+        # }]
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(search_query, download=False)
+        info = ydl.extract_info(search_query, download=True)
         
         if not info.get('entries'):
             raise Exception('No video found')
         video_info = info['entries'][0]
-        return video_info.get('url')
+        video_url = video_info.get('url')
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            print('downloading')
+            ydl.download([video_url])
+
+
+# get_audio('i love you so', 'the walters')

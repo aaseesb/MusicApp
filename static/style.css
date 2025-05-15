@@ -1,43 +1,45 @@
-/* styles.css */
-
+/* base styles */
 *,
 *::before,
 *::after {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Variables */
+/* variables */
 :root {
     --searchBg: #ffffff;
     --fg: #000000;
-    --fontFamily: 'Roboto';
+    --fontFamily: 'Roboto', sans-serif;
 }
 
-/* Base styles */
 html,
 body {
     width: 100%;
     height: 100%;
     background: var(--searchBg);
     font-family: var(--fontFamily);
+    line-height: 1.6;
 }
 
+/* text */
 h1 {
     color: #333;
-    font-size: 2.5em;
+    font-size: 2.5rem;
 }
 
 h2 {
     color: #555;
-    font-size: 2em;
+    font-size: 2rem;
 }
 
 p {
     color: #444;
-    font-size: 1.3em;
+    font-size: 1.2rem;
 }
 
+/* container */
 .container {
     display: flex;
     flex-direction: column;
@@ -45,9 +47,10 @@ p {
     justify-content: center;
     width: 100%;
     height: 100%;
+    padding: 1rem;
+    z-index: 1;
 }
 
-/* homepage */
 /* search */
 .search {
     display: flex;
@@ -55,7 +58,7 @@ p {
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    padding: 1rem;
 }
 
 .search-field {
@@ -72,51 +75,64 @@ p {
 
 /* results page */
 .card {
-    width: 50%;
-    height: 40%;
+    width: 90%;
+    max-width: 700px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    text-align: left;
-    border: 2px solid black;
-    padding: 5%;
+    padding: 1rem;
+    margin: 1rem auto;
 }
 
 .left-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 80%;
-    height: 90%;
+    flex: 1 1 60%;
+    padding: 1rem;
 }
 
 .item-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 1.5em;
-    margin-left: 3em;
-    margin-bottom: 2em;
+    padding: 1rem;
+    margin: 0;
 }
 
 .item-image {
-    min-width: 40%;
-    max-width: 90%;
-    max-height: 90%;
+    width: 40%;
+    max-width: 300px;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    border: 2px solid black;
 }
 
 /* audio player */
+#thefile {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+#canvas {
+    pointer-events: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+/* audio {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    width: calc(100% - 20px);
+} */
+
 audio {
     display: none;
 }
 
-/* Custom Audio Controls */
 .audio-container {
     display: flex;
     flex-direction: column;
@@ -131,20 +147,22 @@ audio {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: right;
-    width: 100%;
+    justify-content: left;
+    width: 80%;
     margin: 0;
 }
 
+.separation.right {
+    justify-content: right;
+}
+
 #play-button:hover {
-    /* cursor:default; */
     cursor: pointer;
 }
 
 input[type="range"] {
     position: relative;
-    /* -webkit-appearance: none; */
-    width: 80%;
+    width: 100%;
     margin: 0;
     padding: 0;
     height: 10px;
@@ -155,33 +173,42 @@ input[type="range"] {
 
 /* buttons */
 .button {
-    cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 0.5em 1em;
+    font-size: 1.2rem;
     text-decoration: none;
+    background-color: #eee;
+    border: 1px solid #aaa;
+    border-radius: 4px;
     color: black;
-    font-size: 1.5em;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #ddd;
+    cursor: pointer;
 }
 
 .othersongs a {
     color: inherit;
     text-decoration: none;
     font-family: 'Roboto Mono', monospace;
-  }
-  
-  .othersongs a:hover {
+}
+
+.othersongs a:hover {
     text-decoration: underline;
     cursor: pointer;
-  }
+}
 
-  /* about button */
+/* about */
 #about {
     position: fixed;
     bottom: 5px;
     right: 10px;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 1.2rem;
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 1rem;
 }
 
 #about a {
@@ -194,4 +221,46 @@ input[type="range"] {
     text-decoration: underline;
     color: #000;
     cursor: pointer;
+}
+
+/* responsiveness on other device sizes */
+@media (max-width: 768px) {
+    .search-field {
+        font-size: 2rem;
+    }
+
+    .card {
+        flex-direction: column;
+    }
+
+    .item-image {
+        max-width: 90%;
+        margin-bottom: 1rem;
+    }
+
+    .left-column {
+        width: 100%;
+    }
+
+    h1, h2 {
+        font-size: 1.8rem;
+    }
+
+    .button {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-field {
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
 }
