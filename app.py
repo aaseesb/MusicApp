@@ -36,6 +36,9 @@ def retrieve_audio():
     print('url')
     return jsonify(url)
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 # # song liking
 
 # @app.route('/likedsongs')
