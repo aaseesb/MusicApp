@@ -80,7 +80,7 @@ p {
     align-items: center;
     text-align: left;
     border: 2px solid black;
-    padding: 3em;
+    padding: 5%;
 }
 
 .left-column {
@@ -104,6 +104,8 @@ p {
 
 .item-image {
     min-width: 40%;
+    max-width: 90%;
+    max-height: 90%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
     border: 2px solid black;

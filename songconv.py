@@ -28,8 +28,6 @@ class Song:
             "User-Agent":"CC-MusicApp"
         }
 
-        self.url = ''
-
     def search_itunes(self):
         raw_data = requests.get(
             "https://itunes.apple.com/search",

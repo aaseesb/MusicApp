@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <!-- page contents -->
-        <div class="container">
-            <!-- display results of search -->
-            <div class="card">
-                <div class="left-column">
-                    <div class="item-info">
-                        <h1>{{results.title}}</h1>
-                        <h2>{{results.artist}}</h2>
-                        <p>{{results.date.split('-')[0]}}, {{results.genre}}, {{results.language}}</p>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- page contents -->
+    <div class="container">
+        <!-- display results of search -->
+        <div class="card">
+            <div class="left-column">
+                <div class="item-info">
+                    <h1>{{results.title}}</h1>
+                    <h2>{{results.artist}}</h2>
+                    <p>{{results.date.split('-')[0]}}, {{results.genre}}, {{results.language}}</p>
+                </div>
+                <audio controls id="audio-player">
+                    <source id="audio-source" type="audio/webm" data-title="{{results.title}}"
+                        data-artist="{{results.artist}}">
+                </audio>
+                <div class="audio-container">
+                    <div class="separation">
+                        <!-- <a id="play-button" data-source="{{results.url}}"></a> -->
+                        <a id="play-button"></a>
+                        <input type="range" id="progress" value="0">
                     </div>
-                    <audio controls id="audio-player">
-                        <source id="audio-source" type="audio/webm" data-title="{{results.title}}" data-artist ="{{results.artist}}">
-                    </audio>
-                    <div class="audio-container">
-                        <div class="separation">
-                            <!-- <a id="play-button" data-source="{{results.url}}"></a> -->
-                            <a id="play-button"></a>
-                            <input type="range" id="progress" value="0">
-                        </div>
-                        <div class="separation">
-                            <p id="current-time" class="time">0:00</p>
-                            <p>/</p>
-                            <p id="duration" class="time">0:00</p>
-                        </div>
+                    <div class="separation">
+                        <p id="current-time" class="time">0:00</p>
+                        <p>/</p>
+                        <p id="duration" class="time">0:00</p>
                     </div>
                 </div>
-                <!-- <img class="item-image" src="{{ url_for('static',filename='resultspage_conceptart.png') }}"> -->
-                <img class="item-image" src="{{results.album_art}}">
             </div>
-            <!-- like button, only works if session exists-->
-            <!-- <form action="/addliked" method="post">
+            <!-- <img class="item-image" src="{{ url_for('static',filename='resultspage_conceptart.png') }}"> -->
+            <img class="item-image" src="{{results.album_art}}">
+        </div>
+        <!-- like button, only works if session exists-->
+        <!-- <form action="/addliked" method="post">
                 <input type="hidden" name="song" value="{{ results }}">
                 <button type="submit" id="like">Like</button>
             </form> -->
-            <!-- back button -->
-            <div class="back-container">
-                <a href="/" class="button">⬅</a>
-            </div>
+        <!-- back button -->
+        <div class="back-container">
+            <a href="/" class="button">⬅</a>
         </div>
+    </div>
 
 
-        <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
         <script>
             const audioPlayer = document.getElementById('audio-player');
             const audioUrl = '{{ results.url }}';
@@ -60,9 +63,10 @@
                 audioPlayer.src = audioUrl;
             }
         </script> -->
-        <!-- <script>
+    <!-- <script>
             const audioUrl = '{{ results.url }}';
         </script> -->
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
-    </body>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
 </html>
