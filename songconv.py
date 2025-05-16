@@ -66,7 +66,10 @@ class Song:
         data = json_data['results'][self.query_num]
 
         self.title = data['trackName']
-        self.title = self.title[:self.title.index('(')].strip() #remove brackets with versions
+        try:
+            self.title = self.title[:self.title.index('(')].strip() #remove brackets with versions
+        except:
+            pass
 
         self.artist = data['artistName']
         self.date = data.get('releaseDate', '').split('T')[0]
