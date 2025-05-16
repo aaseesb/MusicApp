@@ -5,7 +5,7 @@ from langdict import language_dictionary
 import time
 import os
 
-#the itunes search takes ~1.5 seconds and the image search takes ~0.5 seconds but this bastard youtube downloader bullshit takes 20 seconds
+#the itunes search takes ~1.5 seconds and the image search takes ~1 second but this bastard youtube downloader bullshit takes 20 seconds
 import yt_dlp
 
 initial = time.time()
@@ -66,6 +66,8 @@ class Song:
         data = json_data['results'][self.query_num]
 
         self.title = data['trackName']
+        self.title = self.title[:self.title.index('(')].strip() #remove brackets with versions
+
         self.artist = data['artistName']
         self.date = data.get('releaseDate', '').split('T')[0]
         self.genre = data['primaryGenreName']
