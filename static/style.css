@@ -179,11 +179,6 @@ input[type="range"] {
     padding: 0.5em 1em;
     font-size: 1.2rem;
     text-decoration: none;
-    background-color: #eee;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    color: black;
-    transition: background-color 0.2s ease;
     position: fixed;
     top: 10px;
     left: 10px;
