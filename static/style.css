@@ -184,6 +184,9 @@ input[type="range"] {
     border-radius: 4px;
     color: black;
     transition: background-color 0.2s ease;
+    position: fixed;
+    top: 10px;
+    left: 10px;
 }
 
 .button:hover {
