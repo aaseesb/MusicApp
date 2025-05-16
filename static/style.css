@@ -179,6 +179,7 @@ input[type="range"] {
     padding: 0.5em 1em;
     font-size: 1.2rem;
     text-decoration: none;
+    color: black;
     position: fixed;
     top: 10px;
     left: 10px;
