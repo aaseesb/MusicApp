@@ -122,13 +122,6 @@ p {
     z-index: 100;
 }
 
-/* audio {
-    position: fixed;
-    left: 10px;
-    bottom: 10px;
-    width: calc(100% - 20px);
-} */
-
 audio {
     display: none;
 }
@@ -220,6 +213,13 @@ input[type="range"] {
     text-decoration: underline;
     color: #000;
     cursor: pointer;
+}
+
+.contributor {
+    margin-left: 2%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 /* responsiveness on other device sizes */
