@@ -4,7 +4,7 @@ A web app built using Flask, Python, HTML, CSS, and Javascript that allows users
 
 ## Documentation
 
-1. **Clone the repository** `git clone https://github.com/ZawarG/BookScout`
+1. **Clone the repository** `git clone https://github.com/aaseesb/MusicApp`
 
 2. **Install dependencies** `pip install -r requirements.txt`
 
