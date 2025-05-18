@@ -1,6 +1,6 @@
 # 🎶 MusicApp
-A web app built using Flask, Python, HTML, CSS, and Javascript that allows users to search for songs. The app uses the ITunes and Deezer APIs to retrieve and display song data, including the title, artist, publication year, and genre. Users may also listen to the song using audios fetched via yt-dlp. 
-> This project exists solely as a proof of concept and is not designed for commercial or production use.
+A web app built using Flask, Python, HTML, CSS, and Javascript that allows users to search for songs. The app uses the ITunes and Deezer APIs to retrieve and display song data, including the title, artist, publication year, and genre. Users may also listen to the song using audios fetched via yt-dlp.  
+*This project exists solely as a proof of concept and is not designed for commercial or production use.*
 
 ## Documentation
 
