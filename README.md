@@ -2,6 +2,10 @@
 A web app built using Flask, Python, HTML, CSS, and Javascript that allows users to search for songs. The app uses the ITunes and Deezer APIs to retrieve and display song data, including the title, artist, publication year, and genre. Users may also listen to the song using audios fetched via yt-dlp.  
 *This project exists solely as a proof of concept and is not designed for commercial or production use.*
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/345662cb-0849-49de-a175-fd462e117434">
+</div>
+
 ## Documentation
 
 1. **Clone the repository** `git clone https://github.com/aaseesb/MusicApp`
