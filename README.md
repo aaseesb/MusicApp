@@ -3,7 +3,7 @@ A web app built using Flask, Python, HTML, CSS, and Javascript that allows users
 *This project exists solely as a proof of concept and is not designed for commercial or production use.*
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/345662cb-0849-49de-a175-fd462e117434">
+  <img src="https://github.com/user-attachments/assets/8acc1240-5ba7-4a1d-86f4-f19dfdf09c9d">
 </div>
 
 ## Documentation
